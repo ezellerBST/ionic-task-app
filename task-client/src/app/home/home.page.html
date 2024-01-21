@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title class="ion-text-center">
+      Task List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <!-- Incomplete Tasks -->
+    <ion-list>
+      <ion-list-header class="ion-text-start">
+        <ion-label>Incomplete</ion-label>
+      </ion-list-header>
+      <ion-item-sliding *ngFor="let task of taskList">
+        <ion-item *ngIf="!task.completed" >
+          <ion-checkbox justify="space-between" color="tertiary" [checked]="task.completed"
+            (ionChange)="taskCompleted(task)">{{task.title}}</ion-checkbox>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteTask(task.taskId)">Delete</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Completed Tasks -->
+    <ion-list>
+      <ion-list-header class="ion-text-start">
+        <ion-label>Complete</ion-label>
+      </ion-list-header>
+      <ion-item-sliding *ngFor="let task of taskList">
+        <ion-item *ngIf="task.completed" >
+          <ion-checkbox justify="space-between" color="tertiary" [checked]="task.completed"
+            (ionChange)="taskCompleted(task)">{{task.title}}</ion-checkbox>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteTask(task.taskId)">Delete</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button title="Add Task" (click)="openTaskPrompt()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
